@@ -121,19 +121,24 @@
         var local_path = window.location.pathname;
         var local_css_filename = ("./" + local_path.split("/").pop().replace(".html", ".css"));
         var local_js_filename = ("./" + local_path.split("/").pop().replace(".html", ".js"));
-        var jquery_js = "../js_lib/jquery-3.6.0.min.js";
+        var jquery_js = "./js_lib/jquery-3.6.0.min.js";
         console.log(local_path);
         console.log(local_css_filename);
         console.log(local_js_filename);
         console.log(jquery_js);
         function addScriptToDOM(url) {
-            var script = document.createElement("script");  // create a script DOM node
+            let script = document.createElement("script");  // create a script DOM node
             script.src = url;  // set its src to the provided URL
-            document.head.appendChild(script);  // add it to the end of the head section of the page (could change 'head' to 'body' to add it to the end of the body section instead)
+            script.type = 'text/javascript';
+            script.async = false;
+            document.body.appendChild(script);
         }
-        addScriptToDOM(jquery_js);
-        //addScriptToDOM(local_js_filename);
-        addScriptToDOM("./login.js");
+        document.addEventListener("DOMContentLoaded", function(event) {
+            addScriptToDOM(jquery_js);
+            addScriptToDOM(local_js_filename);
+        });
     </script>
+    <!--<script src="./js_lib/jquery-3.6.0.min.js"></script>-->
+    <!--<script src="./login.js"></script>-->
 </body>
 </html>
